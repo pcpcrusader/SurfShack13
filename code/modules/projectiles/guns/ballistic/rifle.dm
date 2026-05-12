@@ -460,3 +460,41 @@
 		It is also able to be suppressed....somehow. This one seems to have a little picture of someone in a blood-red MODsuit stenciled on it, pointing at a green floppy disk. \
 		Who knows what that might mean."
 	pin = /obj/item/firing_pin/implant/pindicate
+
+//Big Ballista Mounted gun Spear
+/obj/projectile/bullet/ballista_spear
+	name = "Spear"
+	icon_state = "ballista_spear"
+	damage = 80
+	speed = 3
+	catastropic_dismemberment = TRUE
+	projectile_piercing = PASSMOB
+	dismemberment = 3
+	embed_type = null
+	armour_penetration = 25
+	wound_bonus = 15
+	damage_type = BRUTE
+	shrapnel_type = /obj/item/spear
+
+/obj/projectile/bullet/ballista_spear/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/projectile_drop, shrapnel_type)
+
+/obj/projectile/bullet/ballista_spear_dragon
+	name = "Dragon-Slaying Spear"
+	icon_state = "ballista_spear_dragon"
+	damage = 120
+	speed = 4
+	catastropic_dismemberment = TRUE
+	projectile_piercing = PASSMOB
+	dismemberment = 3
+	embed_type = null
+	armour_penetration = 25
+	wound_bonus = 15
+	damage_type = BRUTE
+	shrapnel_type = /obj/item/spear/dragonator
+
+/obj/projectile/bullet/ballista_spear_dragon/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/projectile_drop, shrapnel_type)
+	AddElement(/datum/element/bane, damage_multiplier = 2)

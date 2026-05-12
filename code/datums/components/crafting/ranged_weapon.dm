@@ -316,6 +316,47 @@
 	category = CAT_WEAPON_RANGED
 	crafting_flags = CRAFT_CHECK_DENSITY
 
+/datum/crafting_recipe/Ratvarian_Repeater
+	name = "Emplaced Ratvarian Repeater"
+	tool_behaviors = list(TOOL_SCREWDRIVER,TOOL_WRENCH)
+	result = /obj/structure/mounted_gun/ratvarian_repeater
+	reqs = list(
+		/obj/item/stack/cable_coil = 15,
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stock_parts/capacitor = 2,
+		/obj/item/reagent_containers/cup/glass/drinkingglass = 2,
+		/obj/item/stack/sheet/bronze = 5,
+		/obj/item/stack/rods = 10,
+	)
+	time = 15 SECONDS
+	category = CAT_WEAPON_RANGED
+	crafting_flags = CRAFT_CHECK_DENSITY
+
+/datum/crafting_recipe/Detached_Ratvarian_Repeater
+	name = "Iconoclast's Repeater"
+	tool_behaviors = list(TOOL_WELDER)
+	result = /obj/item/gun/energy/laser/musket/repeater
+	structures = list(
+		/obj/structure/mounted_gun/ratvarian_repeater = CRAFTING_STRUCTURE_CONSUME,
+	)
+	time = 10 SECONDS
+	category = CAT_WEAPON_RANGED
+	crafting_flags = CRAFT_CHECK_DENSITY
+
+
+/datum/crafting_recipe/large_ballista
+	name = "Improvised Ballista"
+	tool_behaviors = list(TOOL_WELDER,TOOL_SCREWDRIVER,TOOL_WRENCH,TOOL_WIRECUTTER)
+	result = /obj/structure/mounted_gun/ballista
+	reqs = list(
+		/obj/item/stack/cable_coil = 15,
+		/obj/item/stack/sheet/iron = 10,
+		/obj/item/stack/rods = 10,
+	)
+	time = 8 SECONDS
+	category = CAT_WEAPON_RANGED
+	crafting_flags = CRAFT_CHECK_DENSITY
+
 /datum/crafting_recipe/trash_cannon
 	name = "Trash Cannon"
 	tool_behaviors = list(TOOL_WELDER, TOOL_SCREWDRIVER)

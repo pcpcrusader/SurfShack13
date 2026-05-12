@@ -42,6 +42,13 @@
 	projectile_type = /obj/projectile/beam/laser/musket
 	e_cost = LASER_SHOTS(1, STANDARD_CELL_CHARGE)
 
+/obj/item/ammo_casing/energy/laser/musket/repeater
+	projectile_type = /obj/projectile/beam/laser/musket/repeater
+	pellets = 2
+	variance = 10
+	fire_sound = 'sound/items/weapons/thermalpistol.ogg'
+	e_cost = LASER_SHOTS(6, STANDARD_CELL_CHARGE)
+
 /obj/item/ammo_casing/energy/laser/musket/prime
 	projectile_type = /obj/projectile/beam/laser/musket/prime
 	pellets = 3
