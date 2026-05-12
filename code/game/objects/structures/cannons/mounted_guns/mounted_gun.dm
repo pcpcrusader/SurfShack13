@@ -88,6 +88,10 @@
 	if(is_firing)
 		balloon_alert(user, "gun is firing!")
 		return
+	user.log_message("fired a mounted gun", LOG_ATTACK)
+	log_game("[key_name(user)] fired a mounted gun in [AREACOORD(src)]")
+	addtimer(CALLBACK(src, PROC_REF(fire)), fire_delay) //uses fire proc as shown below to shoot the gun
+	return
 
 /obj/structure/mounted_gun/proc/fire()
 	if (!loaded_gun)
@@ -345,14 +349,3 @@
 	QDEL_NULL(used_item)
 	fully_loaded_gun = TRUE
 	icon_state = icon_state_loaded
-
-/obj/structure/mounted_gun/ballista/attack_hand(mob/living/user, list/modifiers)
-	if(fully_loaded_gun && !is_firing)
-		playsound(src, 'sound/items/weapons/draw_bow.ogg', 50, FALSE, 5)
-		do_after(user, load_delay, target = src)
-		shots_in_gun = 1 //MAX OF ONE SHOT.
-		balloon_alert(user, loading_message)
-		loaded_gun = TRUE
-		QDEL_NULL(used_item)
-		fully_loaded_gun = TRUE
-		icon_state = icon_state_loaded
