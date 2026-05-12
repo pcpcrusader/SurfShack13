@@ -87,20 +87,14 @@
 		if(!mech_found)
 			return FALSE
 
-	for(var/required_structure_path in R.structures)
-		// Check for the presence of the required structure. Allow for subtypes to be used if not blacklisted
-		var/needed_amount = R.structures[required_structure_path]
-		for(var/structure_path in structures)
-			if(!ispath(structure_path, required_structure_path) || R.blacklist.Find(structure_path))
-				continue
-
-				needed_amount -= structures[required_structure_path]
-				requirements_list[required_structure_path] = structures[structure_path] // Store an instance of what we are using for check_requirements
-				if(needed_amount <= 0)
-					break
-
-		// We didn't find the required item
-		if(needed_amount > 0)
+	var/found = FALSE
+	for(var/structure_path in R.structures)
+		found = FALSE
+		for(var/obj/structure/structure as anything in structures)
+			if(ispath(structure, structure_path))// We only need one structure per key, unlike items
+				found = TRUE
+				break
+		if(!found)
 			return FALSE
 
 	return R.check_requirements(a, requirements_list)
@@ -645,8 +639,8 @@
 			data["structures"] += atoms.Find(req_atom)
 
 	// Ingredients / Materials
+	data["reqs"] = list()
 	if(recipe.reqs.len)
-		data["reqs"] = list()
 		for(var/req_atom in recipe.reqs)
 			var/id = atoms.Find(req_atom)
 			data["reqs"]["[id]"] = recipe.reqs[req_atom]
