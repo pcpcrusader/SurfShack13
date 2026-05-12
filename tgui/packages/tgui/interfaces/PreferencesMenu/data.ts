@@ -129,7 +129,7 @@ export enum Window {
 export type PreferencesMenuData = {
   character_preview_view: string;
   character_profiles: (string | null)[];
-
+  balance: number;
   character_preferences: {
     clothing: Record<string, string>;
     features: Record<string, string>;

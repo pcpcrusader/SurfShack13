@@ -91,6 +91,11 @@ export const CharacterPreferenceWindow = (props) => {
       <Window.Content scrollable>
         <Stack vertical fill>
           <Stack.Item>
+              <Button fontSize="22px" icon={"coins"}>
+                {data.balance}
+              </Button>
+          </Stack.Item>
+          <Stack.Item>
             <CharacterProfiles
               activeSlot={data.active_slot - 1}
               onClick={(slot) => {

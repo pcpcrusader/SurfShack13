@@ -156,6 +156,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return user.client == parent ? UI_INTERACTIVE : UI_CLOSE
 
 /datum/preferences/ui_data(mob/user)
+	var/datum/preferences/user_prefs = user?.client?.prefs
+	user_prefs.load_metacoins(user.client.ckey)
+
 	var/list/data = list()
 
 	if (tainted_character_profiles)
@@ -166,6 +169,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	data["active_slot"] = default_slot
 
+	data["balance"] = user_prefs.metacoins
 	for (var/datum/preference_middleware/preference_middleware as anything in middleware)
 		data += preference_middleware.get_ui_data(user)
 
