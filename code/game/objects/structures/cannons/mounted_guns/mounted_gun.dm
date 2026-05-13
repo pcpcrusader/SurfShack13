@@ -296,6 +296,7 @@
 	icon_state = icon_state_base
 
 /obj/structure/mounted_gun/ballista
+	var/isbeingloaded = FALSE
 	name = "Improvised Ballista"
 	desc = "''Engineers like to solve problems. If there are no problems handily available, they will create their own problems.''"
 	icon_state = "Improvised_Ballista"
@@ -327,6 +328,10 @@
 	)
 
 /obj/structure/mounted_gun/ballista/attackby(obj/item/ammo_casing/used_item, mob/user, params) //again its single shot so its kinda weird.
+	if(isbeingloaded)
+		balloon_alert(user, "gun is being loaded!")
+		return
+
 	if(is_firing)
 		balloon_alert(user, "gun is firing")
 		return
@@ -341,6 +346,7 @@
 	if(istype(used_item, alt_ammo_type))
 		use_alt_ammo = TRUE
 
+	isbeingloaded = TRUE
 	playsound(src, 'sound/items/weapons/draw_bow.ogg', 50, FALSE, 5)
 	do_after(user, load_delay, target = src)
 	shots_in_gun = 1 //MAX OF ONE SHOT.
@@ -348,4 +354,5 @@
 	loaded_gun = TRUE
 	QDEL_NULL(used_item)
 	fully_loaded_gun = TRUE
+	isbeingloaded = FALSE
 	icon_state = icon_state_loaded
