@@ -465,14 +465,14 @@
 /obj/projectile/bullet/ballista_spear
 	name = "Spear"
 	icon_state = "ballista_spear"
-	damage = 44
+	damage = 80
 	speed = 3
-	catastropic_dismemberment = FALSE
+	catastropic_dismemberment = TRUE
 	projectile_piercing = PASSMOB
 	dismemberment = 3
 	embed_type = null
 	armour_penetration = 25
-	wound_bonus = 20
+	wound_bonus = 15
 	damage_type = BRUTE
 	shrapnel_type = /obj/item/spear
 

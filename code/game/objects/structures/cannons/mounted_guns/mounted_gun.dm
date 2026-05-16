@@ -327,7 +327,11 @@
 		/datum/material/glass = SMALL_MATERIAL_AMOUNT * 1.5
 	)
 
-/obj/structure/mounted_gun/ballista/attackby(obj/item/ammo_casing/used_item, mob/user, params) //again its single shot so its kinda weird.
+/obj/structure/mounted_gun/ballista/attackby(obj/item/used_item, mob/user, params) //again its single shot so its kinda weird.
+	if(used_item.tool_behaviour == TOOL_SCREWDRIVER && attached_device)
+		attached_device.()
+		attached_device = null
+		return
 	if(isbeingloaded)
 		balloon_alert(user, "gun is being loaded!")
 		return
@@ -348,7 +352,9 @@
 
 	isbeingloaded = TRUE
 	playsound(src, 'sound/items/weapons/draw_bow.ogg', 50, FALSE, 5)
-	do_after(user, load_delay, target = src)
+	if (!do_after(user, load_delay, target = src))
+		isbeingloaded = FALSE
+		return
 	shots_in_gun = 1 //MAX OF ONE SHOT.
 	balloon_alert(user, loading_message)
 	loaded_gun = TRUE
@@ -356,3 +362,8 @@
 	fully_loaded_gun = TRUE
 	isbeingloaded = FALSE
 	icon_state = icon_state_loaded
+/obj/structure/mounted_gun/ballista/Initialize(mapload)
+	. = ..()
+	set_wires(new /datum/wires/ballista(src))
+	AddComponent(/datum/component/simple_rotation)
+	register_context()
