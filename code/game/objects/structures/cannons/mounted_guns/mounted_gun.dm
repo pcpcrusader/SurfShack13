@@ -296,6 +296,7 @@
 	icon_state = icon_state_base
 
 /obj/structure/mounted_gun/ballista
+	var/panel_open = FALSE
 	var/isbeingloaded = FALSE
 	name = "Improvised Ballista"
 	desc = "''Engineers like to solve problems. If there are no problems handily available, they will create their own problems.''"
@@ -328,10 +329,13 @@
 	)
 
 /obj/structure/mounted_gun/ballista/attackby(obj/item/used_item, mob/user, params) //again its single shot so its kinda weird.
-	if(used_item.tool_behaviour == TOOL_SCREWDRIVER && attached_device)
-		attached_device.()
-		attached_device = null
-		return
+	if(used_item.tool_behaviour == TOOL_SCREWDRIVER)
+		if(panel_open)
+			open()
+			attached_device = null
+			return
+		else
+
 	if(isbeingloaded)
 		balloon_alert(user, "gun is being loaded!")
 		return
