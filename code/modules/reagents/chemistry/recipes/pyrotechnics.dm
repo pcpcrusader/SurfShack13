@@ -12,7 +12,7 @@
 	default_explode(holder, created_volume, modifier, strengthdiv)
 
 /datum/chemical_reaction/reagent_explosion/nitroglycerin
-	results = list(/datum/reagent/nitroglycerin = 2)
+	results = list(/datum/reagent/nitroglycerin = 3)
 	required_reagents = list(/datum/reagent/glycerol = 1, /datum/reagent/toxin/acid/nitracid = 1, /datum/reagent/toxin/acid = 1)
 	strengthdiv = 2
 
@@ -29,7 +29,7 @@
 	strengthdiv = 2
 
 /datum/chemical_reaction/reagent_explosion/rdx
-	results = list(/datum/reagent/rdx= 2)
+	results = list(/datum/reagent/rdx= 4)
 	required_reagents = list(/datum/reagent/phenol = 2, /datum/reagent/toxin/acid/nitracid = 1, /datum/reagent/acetone_oxide = 1 )
 	required_catalysts = list(/datum/reagent/gold) //royal explosive
 	required_temp = 404
@@ -75,7 +75,7 @@
 	..()
 
 /datum/chemical_reaction/reagent_explosion/tatp
-	results = list(/datum/reagent/tatp= 1)
+	results = list(/datum/reagent/tatp= 3)
 	required_reagents = list(/datum/reagent/acetone_oxide = 1, /datum/reagent/toxin/acid/nitracid = 1, /datum/reagent/pentaerythritol = 1 )
 	required_temp = 450
 	strengthdiv = 3
@@ -172,12 +172,10 @@
 	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_EXPLOSIVE | REACTION_TAG_DANGEROUS
 
 /datum/chemical_reaction/emp_pulse/on_reaction(datum/reagents/holder, datum/equilibrium/reaction, created_volume)
-	//pretending this reaction took two ingredients and not three for its effects
-	var/two_thirds = created_volume / 1.5
 	var/location = get_turf(holder.my_atom)
 	// 100 created volume = 4 heavy range & 7 light range. A few tiles smaller than traitor EMP grandes.
 	// 200 created volume = 8 heavy range & 14 light range. 4 tiles larger than traitor EMP grenades.
-	empulse(location, round(two_thirds / 12), round(two_thirds / 7), 1)
+	empulse(location, round(created_volume / 12), round(created_volume / 7), 1)
 	holder.clear_reagents()
 
 /datum/chemical_reaction/beesplosion
